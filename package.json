@@ -7,5 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "RADADI Mehdi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "fetch": "^1.1.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.0"
+  }
 }
