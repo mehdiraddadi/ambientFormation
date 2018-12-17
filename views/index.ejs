@@ -1,7 +1,13 @@
 <div>
     <ul>
         <% for(var i=0; i < products.length; i++) { %>
-        <li> <%= products[i].id %> - <%= products[i].name %>   <button onClick="show()">order</button></li>
+        <li> <%= products[i].id %> - <%= products[i].name %>   
+
+
+<a href="/product/<%= products[i].id%>">
+   <button>Order</button>
+</a>
+</li>
         <% } %>   
     </ul>
 </div>
