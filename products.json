@@ -1,0 +1,47 @@
+[
+    {
+        "id":1,
+        "name":"tablette",
+        "description": "tablette normale",
+        "USD_price": 50.99,
+        "file_link": "file_link",
+        "creation_date": "2018-10-21T13:28:06.419Z",
+        "orders_counter": "6" 
+    },
+    {
+        "id":1,
+        "name":"livre",
+        "description": "livre",
+        "USD_price": 23.66,
+        "file_link": "file_link",
+        "creation_date": "2018-9-21T13:28:06.419Z",
+        "orders_counter": "5" 
+    },
+    {
+        "id":1,
+        "name":"blabla",
+        "description": "blabla normale",
+        "USD_price": 20,
+        "file_link": "file_link",
+        "creation_date": "2016-10-21T13:28:06.419Z",
+        "orders_counter": "4" 
+    },
+    {
+        "id":1,
+        "name":"tablette2",
+        "description": "tablette2 normale",
+        "USD_price": 42.99,
+        "file_link": "file_link",
+        "creation_date": "2018-10-21T13:28:06.419Z",
+        "orders_counter": "6" 
+    },
+    {
+        "id":1,
+        "name":"tablette3",
+        "description": "tablette3 normale",
+        "USD_price": 59.99,
+        "file_link": "file_link",
+        "creation_date": "2018-10-21T13:28:06.419Z",
+        "orders_counter": "6" 
+    }
+]
