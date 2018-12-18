@@ -1,22 +1,23 @@
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
- 
-const Products = new Schema(
-    {
-        "id": Number,
-        "name": String,
-        "description": String,
-        "USD_price": Number,
-        "file_link": String,
-        "creation_date": Date,
-        "orders_counter": Number
-});
-
-// Inclusion de Mongoose
+var DBMongoose = require('../db/connection')
+// grab the things we need
 var mongoose = require('mongoose');
- 
-// On se connecte à la base de données
-// N'oubliez pas de lancer ~/mongodb/bin/mongod dans un terminal !
-mongoose.connect('mongodb://localhost/27017', function(err) {
-  if (err) { throw err; }
-});
+var Schema = mongoose.Schema;
+
+// create a schema
+var ProductSchema =  new Schema(
+  {
+      "id": Number,
+      "name": String,
+      "description": String,
+      "USD_price": Number,
+      "file_link": String,
+      "creation_date": Date,
+      "orders_counter": Number
+})
+
+// the schema is useless so far
+// we need to create a model using it
+var Product = mongoose.model('Product', ProductSchema);
+
+// make this available to our users in our Node applications
+module.exports = Product;

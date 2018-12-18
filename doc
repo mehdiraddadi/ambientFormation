@@ -1,0 +1,43 @@
+patch releases: 1.0 or 1.0.x or ~1.0.4
+
+yarm vs npm 
+
+npm i -g live-server && live-server
+middleware une fonction quipeut etre acceder a req, res, next c'est en quekques sortes une methode intermediare sur une ou plusieurs routes qui va manipuler la req et/ou la res puis les passer a la suite
+
+si le middleware ne termine pas appeler next
+
+
+    /* var product = new Product({
+        "id": 2,
+        "name": 'ebook2',
+        "description": 'ebook2 ebook2 ebook2',
+        "USD_price": '50.65',
+        "file_link": 'link/ebook2',
+        "creation_date": new Date(),
+        "orders_counter": 2
+      });
+    
+
+      product.save(function (err) {
+      if (!err) console.log('Success!');
+    })
+ */
+
+ app.get('/product/:id', function(req, res) {
+    var id = req.params.id;
+    
+    /* const prodct = await Product.find({ id: id }) */
+    // get a user with ID of 1
+    Product.find({ id: id }, function(err, product) {
+    if (err) throw err;
+  
+    // show the one product
+    res.send('oder', {prodct: product})
+    console.log(product);
+  });
+    products.orderProductById(id, function(product) {
+        res.send('ok');
+    })
+ })
+

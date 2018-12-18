@@ -1,5 +1,6 @@
 var fs = require('fs');
 var readline = require('readline');
+var Product = require('../modele/Products')
 
 var Prodducts = {
     readFileProducts: function(cb) {
@@ -9,20 +10,27 @@ var Prodducts = {
             cb(products)
         });
     },
-    orderProductById: function(id) {
-        Prodducts.readFileProducts(function(products){
+    orderProductById: function(id, cb) {
+        Product.find({ id: id }, function(err, product) {
+            if (err) throw err;
+            // show the one product
+            product[0].orders_counter++;
+            cb(product[0])
+         });
+
+        /* Prodducts.readFileProducts(function(products){
             var element = products.find(function(product) {
                 return product.id = id;
               });
-              alert(element)
               element.orders_counter++;
-              fs.writeFile('./mock/products.json', JSON.stringify(products), function(err) {
-                if(err) {
-                    return console.log(err);
-                }
-                console.log(`Commande terminée, Voici votre fichier: ${element.file_link}`)
-              })
-        })
+              cb(element) */
+              //fs.writeFile('./mock/products.json', JSON.stringify(products), function(err) {
+               // if(err) {
+               //     return console.log(err);
+               // }
+               // console.log(`Commande terminée, Voici votre fichier: ${element.file_link}`)
+             // })
+       /*  }) */
     },
     getAllProducts: function() {
         Prodducts.readFileProducts(function(products){
