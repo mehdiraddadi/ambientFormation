@@ -61,7 +61,7 @@ app.get('/', function(req, res) {
     var password = req.body.password
     const prodct = User.find({ username: username, password: password }, function(err, user) {
         console.log(user)
-        if(err) throw erro;
+        if(err) throw err;
 
         if(!Object.keys(user).length) {
             res.send('user not found!')
@@ -75,7 +75,7 @@ app.get('/', function(req, res) {
  app.get('/order/:id', function(req, res) {
      var id = req.params.id;
      if(req.session.user === undefined){
-        res.redirect('/login')
+        res.send(500)
      } else {
         products.orderProductById(id, function(product) {
             res.send('ok');
