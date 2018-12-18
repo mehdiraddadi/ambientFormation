@@ -6,7 +6,7 @@
     <div>
         <ul>
             <% for(var i=0; i < products.length; i++) { %>
-            <li> <%= products[i].id %> - <%= products[i].name %>   
+            <li> <%= products[i].id %> - <%= products[i].name %> - <%= products[i].orders_counter%>  
     
             <button onclick="javascript:orderProduct(<%= products[i].id %>);">Click me</button> 
     </li>

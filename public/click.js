@@ -2,9 +2,12 @@ var orderProduct = function(id){
    fetch(`/order/${id}`).then(function(response) { 
     document.cookie = 'odrderId='+id;
     response.text().then(function(text){
-      alert(text == 'Internal Server Error')
-      if(text == 'Internal Server Error') {
-        location.path = '/login'
+      if(response.status == 403) {
+        window.location.href = '/login'
+      }else{
+        window.location.href = '/'
+        alert('ok')
+        
       }
     })
     /* response.text().then(alert)
@@ -12,6 +15,6 @@ var orderProduct = function(id){
       console.log(error); 
       }); */
     }).catch(function(){
-      location.path = '/login'
+      window.location.href = '/login'
     });
 }

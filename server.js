@@ -67,7 +67,8 @@ app.get('/', function(req, res) {
             res.send('user not found!')
         } else {
             req.session.user = user[0].username;
-            res.redirect(`/order/${req.cookies.odrderId}`)
+            res.redirect('/')
+            //res.redirect(`/order/${req.cookies.odrderId}`)
         }
     })
  })
@@ -75,10 +76,12 @@ app.get('/', function(req, res) {
  app.get('/order/:id', function(req, res) {
      var id = req.params.id;
      if(req.session.user === undefined){
-        res.send(500)
+        res.status(403)
+        res.send()
      } else {
         products.orderProductById(id, function(product) {
-            res.send('ok');
+        	console.log(product)
+            res.send(product);
         })
      }
      
@@ -102,5 +105,5 @@ app.get('/', function(req, res) {
  })
 
 app.listen(3030, function () {
-    console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 3030!')
 })

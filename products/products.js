@@ -11,11 +11,15 @@ var Prodducts = {
         });
     },
     orderProductById: function(id, cb) {
-        Product.find({ id: id }, function(err, product) {
+        Product.findOne({ id: id }, function(err, product) {
             if (err) throw err;
             // show the one product
-            product[0].orders_counter++;
-            cb(product[0])
+            product.orders_counter++;
+            product.save(function (err, updatedTank) {
+                if (err) return handleError(err);
+                console.log('product '+product.id +' updated!')
+            });
+            cb(product)
          });
 
         /* Prodducts.readFileProducts(function(products){
