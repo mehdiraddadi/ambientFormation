@@ -1,22 +1,41 @@
 <html>
 <head>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link href="/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/click.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/click.js"></script>
 </head>
 <body>
-    <div>
-        <ul>
-                <% products.forEach(function(product) { %>
-            <li> 
-                <div class="form-group"> 
-                    <%= product.id %> - <%= product.name %> - <%= product.orders_counter%>  
-                <button type="button" class="btn btn-primary" onclick="javascript:orderProduct(<%= "'" + product._id + "'"%>);">Click me</button> 
-                </div>       
-            </li>
-                <% }); %> 
-        </ul>
-    </div>
+ 
+<div class="container">
 
+<div class="row">
+<% products.forEach(function(product) { %>
+<div class="col-md-4">
+	<figure class="card card-product">
+		<div class="img-wrap"><img style="width: 175px;" src="/image/symfony.jpg"></div>
+		<figcaption class="info-wrap">
+				<h4 class="title"><%= product.id %> - <%= product.name %> </h4>
+				<p class="desc"><%= product.description %> </p>
+				<div class="rating-wrap">
+					<div class="label-rating">132 reviews</div>
+					<div class="label-rating"><%= product.orders_counter%>  orders </div>
+				</div> <!-- rating-wrap.// -->
+		</figcaption>
+		<div class="bottom-wrap">
+			                <button type="button" class="btn btn-sm btn-primary float-right" onclick="javascript:orderProduct(<%= "'" + product._id + "'"%>);">Order Now</button> 	
+			<div class="price-wrap h5">
+				<span class="price-new">$ <%= product.USD_price%></span> 
+			</div> <!-- price-wrap.// -->
+		</div> <!-- bottom-wrap.// -->
+	</figure>
+
+</div> 
+<% }); %> 
+
+</div> <!-- row.// -->
+
+
+</div> 
 </body>
 </html>
