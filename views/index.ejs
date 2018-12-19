@@ -1,16 +1,20 @@
 <html>
 <head>
-    <script type="text/javascript" src="/click.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/click.js"></script>
 </head>
 <body>
     <div>
         <ul>
-            <% for(var i=0; i < products.length; i++) { %>
-            <li> <%= products[i].id %> - <%= products[i].name %> - <%= products[i].orders_counter%>  
-    
-            <button onclick="javascript:orderProduct(<%= products[i].id %>);">Click me</button> 
-    </li>
-            <% } %>   
+                <% products.forEach(function(product) { %>
+            <li> 
+                <div class="form-group"> 
+                    <%= product.id %> - <%= product.name %> - <%= product.orders_counter%>  
+                <button type="button" class="btn btn-primary" onclick="javascript:orderProduct(<%= "'" + product._id + "'"%>);">Click me</button> 
+                </div>       
+            </li>
+                <% }); %> 
         </ul>
     </div>
 

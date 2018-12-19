@@ -41,3 +41,55 @@ si le middleware ne termine pas appeler next
     })
  })
 
+####################################################
+setImmediate : execute une fonction dans le prochain tour d'event loop
+               utile pour caser une operation synchrone longue et evite de bloquer l'event loop
+
+setInterval : execute une fonction chaque x milliseconde
+
+arreter des timers: stocker ID numerique et passer a clearTimeout
+
+probleme callbackhell:
+solution async.js, promese // Async.waterfull // Async.parallel // Async.map
+
+les promesses:
+
+traitement de facon async, lprsqu'on cree un objet new Promise le corp de sa fonction est appele immediatement
+
+ si on enchaine plusieurs then il faut ajouter un return a la fin de leurs callback respectifs si nin ils vont s'executer en meme temps      
+
+ promise en cascade 
+ permet d'eviter le callback hell
+ il faut tjr retourner une promise pour eviter enchiner des appels async
+
+ promise.all accept un array de promise
+
+
+ - async / await : function marquee comme asynchrone avec le prefixe "async"   
+ dans une fonction asynchrone uniquement le mot cle await devinet disponible
+
+ lorsque await est utilisse pour prefixer une appel de focntion async  met l'execution de la fonction
+ ######################################################################################################
+ andrea bonapersona
+ app.post('/check', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), function(req, res) {
+    var username = req.body.username
+    var password = req.body.password
+    req.session.save((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+    
+    /* const prodct = User.find({ username: username, password: password }, function(err, user) {
+        if(err) throw err;
+
+        if(!Object.keys(user).length) {
+            res.send('user not found!')
+        } else {
+            req.session.user = user[0].username;
+            config.user = user[0].username
+            res.redirect('/')
+        }
+    }) */
+ })
