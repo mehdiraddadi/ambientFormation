@@ -1,5 +1,6 @@
 var fs = require('fs');
-var Product = require('../modele/Users')
+var UserModel = require('../modele/Users')
+var Bcrypt = require('bcrypt')
 
 var UserService = {
    getUserByUsernamePassword : function(username, password){
@@ -15,6 +16,21 @@ var UserService = {
             })
         })
     
+   },
+   saveUser: function(user) {
+       const saltRounds = 10
+       var password = user.password
+       console.log(password)
+       Bcrypt.hash(password, saltRounds, function(err, hash) {
+           user.password = hash
+           console.log(hash)
+           var User = new UserModel(user)
+           User.save(function (err, userInsert) {
+            if (err) return handleError(err);
+            console.log('user saverd!')
+        })
+        // Store hash in your password DB.
+      })
    }
 }
 

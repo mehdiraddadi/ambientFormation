@@ -3,6 +3,7 @@ var passport = require('passport')
 var Product = require('../modele/Products')
 var User = require('../modele/Users')
 var productsService = require('../service/products')
+var userService = require('../service/user')
 const router = express.Router();
 
 router.get('/', function(req, res) {
@@ -25,14 +26,13 @@ router.get('/', function(req, res) {
  router.post('/check', function(req, res) {
     var username = req.body.username
     var password = req.body.password
-    const prodct = User.find({ username: username, password: password }, function(err, user) {
-        console.log(user)
+    const prodct = User.findOne({ username: username }, function(err, user) {
         if(err) throw err;
 
-        if(!Object.keys(user).length) {
+        if(!user.validPassword(password)) {
             res.send('user not found!')
         } else {
-            req.session.user = user[0].username;
+            req.session.user = user.username;
             res.redirect('/')
             //res.redirect(`/order/${req.cookies.odrderId}`)
         }
@@ -65,10 +65,19 @@ router.get('/', function(req, res) {
     }); */
  })
 
- router.get('/logout', function(req, res) {
+ router.get('/logout', (req, res) => {
      req.session.user = undefined;
      res.send('lougout avec success!')
  })
+
+ router.get('/register', (req, res) =>{
+    res.render('register')
+ })
+
+router.post('/register', (req, res) => {
+    userService.saveUser(req.body)
+    res.send('post')
+})
 
 
 router.get('/connect/google', passport.authenticate('google', {

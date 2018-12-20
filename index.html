@@ -1,0 +1,10 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:8080');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('client', { my: 'data' });
+  });
+</script>
+
+<div>Bonjour!</div>
