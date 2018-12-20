@@ -9,6 +9,9 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session')
 var cookieParser = require('cookie-parser')
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+
 app.use(express.static('public'))
 app.use(cookieParser());
 app.use(bodyParser());
@@ -40,12 +43,12 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-  var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+
 
   passport.use(new GoogleStrategy({
-      clientID:     '960465279631-73jgd1ffac2v381li10mps9sd4nasali.apps.googleusercontent.com',
-      clientSecret: '6YYJR8It0DvAfJh1mj-vHIt-',
-      callbackURL: "http://yourdormain:3000/auth/google/callback",
+      clientID:   config.google.clientID,
+      clientSecret: config.google.clientSecret,
+      callbackURL: config.google.callbackURL,
       passReqToCallback   : true
     },
     function(request, accessToken, refreshToken, profile, done) {
@@ -55,75 +58,26 @@ passport.deserializeUser(function(id, done) {
     }
   ));
 
-
-
-
-
-  global.userSession = null;
-DBMongoose.connection(
-    function(data){
-        console.log(data)
-    }
-)
-
-app.get('/', async function(req, res) {
-    console.log('/home', req.user)
-    var products = await productsService.getAllProducts()
-    res.render('index', {products: products})
- });
-
- app.get('/login', function(req, res) {
-     res.render('login')
- })
-
- app.get('/404', function(req, res) {
-     res.send('Unauthorized')
- })
-
- app.post('/check',passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), function(req, res, next) {
-    req.session.save((err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('/');
+  passport.use(new FacebookStrategy({
+      clientID:   config.facebook.clientID,
+      clientSecret: config.facebook.clientSecret,
+      callbackURL: config.facebook.callbackURL,
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
     });
- })
-
- app.get('/order/:id', async function(req, res) {
-     var id = req.params.id;
-     console.log('/order', req.user)
-     if(req.user === undefined){
-        res.status(403)
-        res.send()
-     } else {
-        var order = await productsService.addOrder(id, req.user._id)
-        res.send(order);
-     }
- })
-
- app.get('/logout', (req, res, next) => {
-    req.logout();
-    req.session.save((err) => {
-        if (err) {
-            return next(err);
+  }
+));
+    DBMongoose.connection(
+        function(data){
+            console.log(data)
         }
-        res.redirect('/');
-    });
-});
+    )
 
- app.get('/order/list/:user_id', async function(req, res) {
-    var userId = req.params.user_id;
-    var orders = await productsService.getUserProducts(userId)
-    res.send(orders)
- })
-
+    var routes = require('./router/router');
+    app.use('/', routes);
 app.listen(3030, function () {
     console.log('Example app listening on port 3030!')
 })
 
-app.get('/connect/google', passport.authenticate('google', {
-    scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-    ]
-}));

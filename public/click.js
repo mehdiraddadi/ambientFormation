@@ -5,7 +5,7 @@ var orderProduct = function(id){
       if(response.status == 403) {
         window.location.href = '/login'
       }else{
-        alert('ok')
+        alert('order added :)')
         setTimeout(function(){
           window.location.href = '/'
         }, 500)     

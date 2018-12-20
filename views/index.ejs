@@ -5,6 +5,11 @@
         <script type="text/javascript" src="/click.js"></script>
 </head>
 <body>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+        <%if (userId != null) { %>
+        <a href="/order/list/<%=userId._id%>">valid command</a>
+        <% } %>
     <div>
         <ul>
                 <% products.forEach(function(product) { %>
